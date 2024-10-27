@@ -9,13 +9,9 @@ on:
       - main
 
 jobs:
-  test_and_lint:
+  # Перший крок: Запуск тестів
+  run_tests:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        task: [test, lint]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,21 +19,34 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '16'  # Можна змінити версію Node.js, якщо потрібно
+          node-version: '16'
 
       - name: Install dependencies
         run: npm install
 
       - name: Run Tests
-        if: matrix.task == 'test'
         run: |
           echo "Running tests..."
           npm run test
-        continue-on-error: false
+        continue-on-error: false  # Зупиняє виконання при помилках тестів
+
+  # Другий крок: Запуск лінтера
+  run_lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
 
       - name: Run Linter
-        if: matrix.task == 'lint'
         run: |
           echo "Running linter..."
           npm run lint
-        continue-on-error: false
+        continue-on-error: false  # Зупиняє виконання при помилках лінтингу
