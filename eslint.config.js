@@ -8,7 +8,7 @@ export default [
     languageOptions: { 
       globals: { 
         ...globals.browser,
-        ...globals.jest   // Додає підтримку глобальних змінних Jest
+        ...globals.jest   
       } 
     }
   },

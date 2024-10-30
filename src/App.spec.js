@@ -5,7 +5,7 @@ describe('App.vue - Calculator', () => {
   let wrapper;
 
   beforeEach(() => {
-    wrapper = shallowMount(App); // Створюємо об'єкт компонента перед кожним тестом
+    wrapper = shallowMount(App); 
   });
 
   it('додає два числа правильно', async () => {
